@@ -145,8 +145,8 @@ int main(int argc, char** argv) {
         uint16_t immediate = extractBits(instruction, 0, 15);
         uint32_t address = extractBits(instruction, 0, 15);
 
-        int32_t signExtImm = signExt(immediate)
-        uint32_t zeroExtImm =
+        int32_t signExtImm = signExt(immediate);
+        uint32_t zeroExtImm = immediate;
 
         uint32_t branchAddr = 
         uint32_t jumpAddr = // assumes PC += 4 just happened
