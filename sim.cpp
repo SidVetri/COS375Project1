@@ -136,16 +136,16 @@ int main(int argc, char** argv) {
 
         // TODO: parse instruction by completing function calls to extractBits()
         // and set operands accordingly
-        uint32_t opcode = extractBits(instruction, , );
-        uint32_t rs = extractBits(instruction, , );
-        uint32_t rt = extractBits(instruction, , );
-        uint32_t rd = extractBits(instruction, , );
-        uint32_t shamt = extractBits(instruction, , );
-        uint32_t funct = extractBits(instruction, , );
-        uint16_t immediate = extractBits(instruction, , );
-        uint32_t address = extractBits(instruction, , );
+        uint32_t opcode = extractBits(instruction, 26, 31);
+        uint32_t rs = extractBits(instruction, 21, 25);
+        uint32_t rt = extractBits(instruction, 16, 20);
+        uint32_t rd = extractBits(instruction, 11, 15);
+        uint32_t shamt = extractBits(instruction, 6, 10);
+        uint32_t funct = extractBits(instruction, 0, 5);
+        uint16_t immediate = extractBits(instruction, 0, 15);
+        uint32_t address = extractBits(instruction, 0, 15);
 
-        int32_t signExtImm = 
+        int32_t signExtImm = signExt(immediate)
         uint32_t zeroExtImm =
 
         uint32_t branchAddr = 
