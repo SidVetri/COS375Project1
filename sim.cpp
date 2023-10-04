@@ -117,6 +117,9 @@ int main(int argc, char** argv) {
     uint32_t savedBranch = 0;       // saved (delayed) branch instruction
     uint32_t savedPC = 0;           // PC when the branch wa encountered (PC for the instruction in memory after the branch instruction)
     
+
+    bool delaySlot = false;
+    uint32_t delaySlotBranchAdr = 0;
     // start simulation
     // TODO: complete simulation loop and implement branch delay logic
     while (!err) {
@@ -124,6 +127,8 @@ int main(int argc, char** argv) {
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
+        
+        
         // increment PC & reset zero register
         PC += 4;
         regData.registers[0] = 0;
@@ -208,19 +213,19 @@ int main(int argc, char** argv) {
                 break;
             case OP_BEQ: 
                 if (regData.registers[rs] == regData.registers[rt])
-                    PC += branchAddr;
+                    delaySlotBranchAdr = branchAddr;
                 break;
             case OP_BNE:
                 if (regData.registers[rs] == regData.registers[rt])
-                    PC += branchAddr;
+                    delaySlotBranchAdr = branchAddr;
                 break;
             case OP_BLEZ: 
                 if (regData.registers[rs] <= 0)
-                    PC += branchAddr;
+                    delaySlotBranchAdr = branchAddr;
                 break;
             case OP_BGTZ: 
                 if (regData.registers[rs] > 0)
-                    PC += branchAddr;
+                    delaySlotBranchAdr = branchAddr;
                 break;
             case OP_J: 
                 PC = jumpAddr;
@@ -268,6 +273,13 @@ int main(int argc, char** argv) {
             default:
                 fprintf(stderr, "\tIllegal operation...\n");
                 err = true;
+        }
+
+        if(delaySlot)
+        {
+            delaySlot = false;
+            PC += delaySlotBranchAdr - 4;
+            delaySlotBranchAdr = 0;
         }
     }
 
