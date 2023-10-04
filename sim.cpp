@@ -231,13 +231,13 @@ int main(int argc, char** argv) {
             case OP_LBU: 
                 uint32_t value;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value,BYTE_SIZE);
-                regData.registers[rt] = {24'b0,value};
+                regData.registers[rt] = (24'b0 << 8) | value;
             case OP_LHU: 
                 uint32_t value;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value, HALF_SIZE);
-                regData.registers[rt] = {16'b0,value};
+                regData.registers[rt] = (16'b0 << 16) | value;
             case OP_LUI: 
-                regData.registers[rt] = {immediate,16'b0};
+                regData.registers[rt] = (immediate << 16) | 32'b0;
             case OP_LW: 
                 uint32_t value;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value, WORD_SIZE);
