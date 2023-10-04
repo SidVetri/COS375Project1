@@ -24,21 +24,21 @@ enum OP_IDS
     OP_ADDIU = 0x09, // addiu
     OP_ANDI = 0x0c, // andi
     OP_BEQ = 0x04, // beq
-    OP_BNE = 0x05 // bne
-    OP_LBU = 0x24 // lbu
-    OP_LHU = 0x25 // lhu
-    OP_LUI = 0x0f // lui
-    OP_LW = 0x23 // lw
-    OP_ORI = 0x0d // ori
-    OP_SLTI = 0x0a // slti
-    OP_SLTIU = 0x0b // sltiu
-    OP_SB = 0x28 // sb
-    OP_SH = 0x29 // sh
-    OP_SW = 0x2b // sw
-    OP_BLEZ = 0x06 // blez
-    OP_BGTZ = 0x07 // bgtz
+    OP_BNE = 0x05, // bne
+    OP_LBU = 0x24, // lbu
+    OP_LHU = 0x25, // lhu
+    OP_LUI = 0x0f, // lui
+    OP_LW = 0x23, // lw
+    OP_ORI = 0x0d, // ori
+    OP_SLTI = 0x0a, // slti
+    OP_SLTIU = 0x0b, // sltiu
+    OP_SB = 0x28, // sb
+    OP_SH = 0x29, // sh
+    OP_SW = 0x2b, // sw
+    OP_BLEZ = 0x06, // blez
+    OP_BGTZ = 0x07, // bgtz
     //J-type opcodes...
-    OP_J = 0x02 // j
+    OP_J = 0x02, // j
     OP_JAL = 0x03 // jal
 };
 
@@ -48,14 +48,14 @@ enum FUNCT_IDS
     FUN_ADD = 0x20, // add
     FUN_ADDU = 0x21, // add unsigned (addu)
     FUN_AND = 0x24, // and
-    FUN_JR = 0x08 // jump register (jr)
-    FUN_NOR = 0x27 // nor
-    FUN_OR = 0x25 // or
-    FUN_SLT = 0x2a // set less than (slt)
-    FUN_SLTU = 0x2b // set less than unsigned (sltu)
-    FUN_SLL = 0x00 // shift left logical (sll)
-    FUN_SRL = 0x02 // shift right logical (srl)
-    FUN_SUB = 0x22 // substract (sub)
+    FUN_JR = 0x08, // jump register (jr)
+    FUN_NOR = 0x27, // nor
+    FUN_OR = 0x25, // or
+    FUN_SLT = 0x2a, // set less than (slt)
+    FUN_SLTU = 0x2b, // set less than unsigned (sltu)
+    FUN_SLL = 0x00, // shift left logical (sll)
+    FUN_SRL = 0x02, // shift right logical (srl)
+    FUN_SUB = 0x22, // substract (sub)
     FUN_SUBU = 0x23 // substract unsigned (subu)
 };
 
@@ -231,13 +231,13 @@ int main(int argc, char** argv) {
             case OP_LBU: 
                 uint32_t value;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value,BYTE_SIZE);
-                regData.registers[rt] = (24'b0 << 8) | value;
+                regData.registers[rt] = (0x000000 << 8) | value;
             case OP_LHU: 
                 uint32_t value;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value, HALF_SIZE);
-                regData.registers[rt] = (16'b0 << 16) | value;
+                regData.registers[rt] = (0x0000 << 16) | value;
             case OP_LUI: 
-                regData.registers[rt] = (immediate << 16) | 32'b0;
+                regData.registers[rt] = (immediate << 16) | 0x00000000;
             case OP_LW: 
                 uint32_t value;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value, WORD_SIZE);
