@@ -232,31 +232,41 @@ int main(int argc, char** argv) {
                 uint32_t value_LBU;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value_LBU,BYTE_SIZE);
                 regData.registers[rt] = (0x000000 << 8) | value_LBU;
+                break;
             case OP_LHU: 
                 uint32_t value_LHU;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value_LHU, HALF_SIZE);
                 regData.registers[rt] = (0x0000 << 16) | value_LHU;
+                break;
             case OP_LUI: 
                 regData.registers[rt] = (immediate << 16) | 0x00000000;
+                break;
             case OP_LW: 
                 uint32_t value_LW;
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value_LW, WORD_SIZE);
                 regData.registers[rt] = value_LW;
+                break;
             case OP_ORI: 
                 regData.registers[rt] = regData.registers[rs] | signExtImm;
+                break;
             case OP_SLTI: 
                 regData.registers[rt] = (regData.registers[rs] < signExtImm) ? 1 : 0;
+                break;
             case OP_SLTIU: 
                 regData.registers[rt] = (regData.registers[rs] < signExtImm) ? 1 : 0;
+                break;
             case OP_SB: 
                 uint32_t value_SB = extractBits(regData.registers[rt], 0, 7);
-                myMem->setMemValue((regData.registers[rs]+signExtImm),value_SB, BYTE_SIZE);                
+                myMem->setMemValue((regData.registers[rs]+signExtImm),value_SB, BYTE_SIZE);
+                break;                
             case OP_SH: 
                 uint32_t value_SH = extractBits(regData.registers[rt], 0, 15);
                 myMem->setMemValue((regData.registers[rs]+signExtImm),value_SH, HALF_SIZE);
+                break;
             case OP_SW: 
                 uint32_t value_SW = regData.registers[rt];
                 myMem->setMemValue((regData.registers[rs]+signExtImm),value_SW, WORD_SIZE);
+                break;
             default:
                 fprintf(stderr, "\tIllegal operation...\n");
                 err = true;
