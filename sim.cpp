@@ -220,7 +220,7 @@ int main(int argc, char** argv) {
             case OP_BGTZ: 
                 if (regData.registers[rs] > 0)
                     PC += branchAddr;
-                break
+                break;
             case OP_J: 
                 PC = jumpAddr;
                 break;
@@ -229,19 +229,19 @@ int main(int argc, char** argv) {
                 PC = jumpAddr;
                 break;
             case OP_LBU: 
-                uint32_t value;
-                myMem->getMemValue((regData.registers[rs]+signExtImm),value,BYTE_SIZE);
-                regData.registers[rt] = (0x000000 << 8) | value;
+                uint32_t value_LBU;
+                myMem->getMemValue((regData.registers[rs]+signExtImm),value_LBU,BYTE_SIZE);
+                regData.registers[rt] = (0x000000 << 8) | value_LBU;
             case OP_LHU: 
-                uint32_t value;
-                myMem->getMemValue((regData.registers[rs]+signExtImm),value, HALF_SIZE);
-                regData.registers[rt] = (0x0000 << 16) | value;
+                uint32_t value_LHU;
+                myMem->getMemValue((regData.registers[rs]+signExtImm),value_LHU, HALF_SIZE);
+                regData.registers[rt] = (0x0000 << 16) | value_LHU;
             case OP_LUI: 
                 regData.registers[rt] = (immediate << 16) | 0x00000000;
             case OP_LW: 
-                uint32_t value;
-                myMem->getMemValue((regData.registers[rs]+signExtImm),value, WORD_SIZE);
-                regData.registers[rt] = value;
+                uint32_t value_LW;
+                myMem->getMemValue((regData.registers[rs]+signExtImm),value_LW, WORD_SIZE);
+                regData.registers[rt] = value_LW;
             case OP_ORI: 
                 regData.registers[rt] = regData.registers[rs] | signExtImm;
             case OP_SLTI: 
@@ -249,14 +249,14 @@ int main(int argc, char** argv) {
             case OP_SLTIU: 
                 regData.registers[rt] = (regData.registers[rs] < signExtImm) ? 1 : 0;
             case OP_SB: 
-                uint32_t value = extractBits(regData.registers[rt], 0, 7);
-                myMem->setMemValue((regData.registers[rs]+signExtImm),value, BYTE_SIZE);                
+                uint32_t value_SB = extractBits(regData.registers[rt], 0, 7);
+                myMem->setMemValue((regData.registers[rs]+signExtImm),value_SB, BYTE_SIZE);                
             case OP_SH: 
-                uint32_t value = extractBits(regData.registers[rt], 0, 15);
-                myMem->setMemValue((regData.registers[rs]+signExtImm),value, HALF_SIZE);
+                uint32_t value_SH = extractBits(regData.registers[rt], 0, 15);
+                myMem->setMemValue((regData.registers[rs]+signExtImm),value_SH, HALF_SIZE);
             case OP_SW: 
-                uint32_t value = regData.registers[rt];
-                myMem->setMemValue((regData.registers[rs]+signExtImm),value, WORD_SIZE);
+                uint32_t value_SH = regData.registers[rt];
+                myMem->setMemValue((regData.registers[rs]+signExtImm),value_SH, WORD_SIZE);
             default:
                 fprintf(stderr, "\tIllegal operation...\n");
                 err = true;
