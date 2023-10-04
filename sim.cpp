@@ -255,8 +255,8 @@ int main(int argc, char** argv) {
                 uint32_t value_SH = extractBits(regData.registers[rt], 0, 15);
                 myMem->setMemValue((regData.registers[rs]+signExtImm),value_SH, HALF_SIZE);
             case OP_SW: 
-                uint32_t value_SH = regData.registers[rt];
-                myMem->setMemValue((regData.registers[rs]+signExtImm),value_SH, WORD_SIZE);
+                uint32_t value_SW = regData.registers[rt];
+                myMem->setMemValue((regData.registers[rs]+signExtImm),value_SW, WORD_SIZE);
             default:
                 fprintf(stderr, "\tIllegal operation...\n");
                 err = true;
