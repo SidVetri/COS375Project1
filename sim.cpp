@@ -127,7 +127,8 @@ int main(int argc, char** argv) {
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
         
-        fprintf(stderr, "hi");
+        fprintf(stderr, "hi/n");
+
         instruction = ConvertWordToBigEndian(instruction);
         //fprintf(stderr, str(instruction));
 
