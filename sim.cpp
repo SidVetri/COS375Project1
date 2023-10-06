@@ -274,8 +274,8 @@ int main(int argc, char** argv) {
                 }*/
                 printf("%x\n", branchAddr);
                 printf("%x\n", PC + branchAddr);
-                printf("%d", rs);
-                printf("%d", int32_t(regData.registers[rs]));
+                printf("%d\n", rs);
+                printf("%d\n", int32_t(regData.registers[rs]));
                 if (int32_t(regData.registers[rs]) > 0)
                     PC += branchAddr;
                 break;
