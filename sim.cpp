@@ -271,6 +271,8 @@ int main(int argc, char** argv) {
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
                 }*/
+                printf("%x\n", branchAddr);
+                printf("%x\n", PC + branchAddr);
                 if (int32_t(regData.registers[rs]) > 0)
                     PC += branchAddr;
                 break;
