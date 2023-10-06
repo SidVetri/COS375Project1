@@ -120,16 +120,13 @@ int main(int argc, char** argv) {
     uint32_t value;
     // start simulation
     // TODO: complete simulation loop and implement branch delay logic
-    uint32_t counter = 0;
     while (!err) {
         value = 0;
         // fetch current instruction
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
-
-        
-        printf("%d",&counter);
-        counter++;
+        printf("%x\n", instruction);
+        printf("%x\n", PC);
 
         instruction = ConvertWordToBigEndian(instruction);
         //fprintf(stderr, str(instruction));
