@@ -222,6 +222,7 @@ int main(int argc, char** argv) {
                 regData.registers[rt] = regData.registers[rs] & zeroExtImm;
                 break;
             case OP_BEQ: 
+                /*
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (int32_t(regData.registers[rs]) == int32_t(regData.registers[rt]))
                         PC += branchAddr-4;
@@ -230,9 +231,12 @@ int main(int argc, char** argv) {
                     if (int32_t(regData.registers[rs]) == int32_t(regData.registers[rt]))
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
-                }
+                }*/
+                if (int32_t(regData.registers[rs]) == int32_t(regData.registers[rt]))
+                    PC += branchAddr-4;
                 break;
             case OP_BNE:
+                /*
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (int32_t(regData.registers[rs]) != int32_t(regData.registers[rt]))
                             PC += branchAddr-4;
@@ -242,8 +246,12 @@ int main(int argc, char** argv) {
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
                 }
+                */
+                if (int32_t(regData.registers[rs]) != int32_t(regData.registers[rt]))
+                    PC += branchAddr-4;
                 break;
             case OP_BLEZ: 
+                /*
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (int32_t(regData.registers[rs]) <= 0)
                             PC += branchAddr-4;
@@ -252,9 +260,12 @@ int main(int argc, char** argv) {
                     if (int32_t(regData.registers[rs]) <= 0)
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
-                }
+                }*/
+                if (int32_t(regData.registers[rs]) <= 0)
+                    PC += branchAddr-4;
                 break;
             case OP_BGTZ: 
+                /*
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (int32_t(regData.registers[rs]) > 0)
                             PC += branchAddr-4;
@@ -263,7 +274,9 @@ int main(int argc, char** argv) {
                     if (int32_t(regData.registers[rs]) > 0)
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
-                }
+                }*/
+                if (int32_t(regData.registers[rs]) > 0)
+                    PC += branchAddr-4;
                 break;
             case OP_J: 
                 PC = jumpAddr;
@@ -313,13 +326,13 @@ int main(int argc, char** argv) {
                 err = true;
         }
 
-        if(delaySlot2 && delaySlot1)
+        /*if(delaySlot2 && delaySlot1)
         {
             delaySlot2 = false;
             delaySlot1 = false;
             PC += delaySlotBranchAdr - 8;
             delaySlotBranchAdr = 0;
-        }
+        }*/
     }
 
 
