@@ -127,9 +127,11 @@ int main(int argc, char** argv) {
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
         
-        std::cerr << "instruction = " << std::bitset<32>(instruction)  << std::flush;
+        std::cout << "a = " << std::bitset<32>(instruction)  << std::flush();
         instruction = ConvertWordToBigEndian(instruction);
-        std::cerr << "instruction = " << std::bitset<32>(instruction)  << std::flush;
+        std::cout << "a = " << std::bitset<32>(instruction)  << std::flush();
+
+        
 
         uint32_t next_instruction;
 
@@ -187,7 +189,7 @@ int main(int argc, char** argv) {
                         regData.registers[rd] = (regData.registers[rs] | regData.registers[rt]);
                         break;
                     case FUN_SLT: 
-                        regData.registers[rd] = (regData.registers[rs] < regData.registers[rt]) ? 1 : 0;
+                        regData.registers[rd] = (int32_t(regData.registers[rs]) < int32_t(regData.registers[rt])) ? 1 : 0;
                         break;
                     case FUN_SLTU: 
                         regData.registers[rd] = (uint32_t(regData.registers[rs]) < uint32_t(regData.registers[rt])) ? 1 : 0;
@@ -221,44 +223,44 @@ int main(int argc, char** argv) {
                 break;
             case OP_BEQ: 
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
-                    if (regData.registers[rs] == regData.registers[rt])
+                    if (int32_t(regData.registers[rs]) == int32_t(regData.registers[rt]))
                         PC += branchAddr-4;
                 }
                 else{
-                    if (regData.registers[rs] == regData.registers[rt])
+                    if (int32_t(regData.registers[rs]) == int32_t(regData.registers[rt]))
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
                 }
                 break;
             case OP_BNE:
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
-                    if (regData.registers[rs] != regData.registers[rt])
+                    if (int32_t(regData.registers[rs]) != int32_t(regData.registers[rt]))
                             PC += branchAddr-4;
                 }
                 else{
-                    if (regData.registers[rs] != regData.registers[rt])
+                    if (int32_t(regData.registers[rs]) != int32_t(regData.registers[rt]))
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
                 }
                 break;
             case OP_BLEZ: 
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
-                    if (regData.registers[rs] <= 0)
+                    if (int32_t(regData.registers[rs]) <= 0)
                             PC += branchAddr-4;
                 }
                 else{
-                    if (regData.registers[rs] <= 0)
+                    if (int32_t(regData.registers[rs]) <= 0)
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
                 }
                 break;
             case OP_BGTZ: 
                 if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
-                    if (regData.registers[rs] > 0)
+                    if (int32_t(regData.registers[rs]) > 0)
                             PC += branchAddr-4;
                 }
                 else{
-                    if (regData.registers[rs] > 0)
+                    if (int32_t(regData.registers[rs]) > 0)
                         delaySlotBranchAdr = branchAddr;
                         delaySlot1 = true;
                 }
@@ -282,17 +284,17 @@ int main(int argc, char** argv) {
                 regData.registers[rt] = (immediate << 16) | 0x00000000;
                 break;
             case OP_LW: 
-                myMem->getMemValue((regData.registers[rs]+signExtImm),value, WORD_SIZE);
+                myMem->getMemValue((regData.registers[rs]+signExtImm), value, WORD_SIZE);
                 regData.registers[rt] = value;
                 break;
             case OP_ORI: 
                 regData.registers[rt] = regData.registers[rs] | signExtImm;
                 break;
             case OP_SLTI: 
-                regData.registers[rt] = (regData.registers[rs] < signExtImm) ? 1 : 0;
+                regData.registers[rt] = (int32_t(regData.registers[rs]) < signExtImm) ? 1 : 0;
                 break;
             case OP_SLTIU: 
-                regData.registers[rt] = (regData.registers[rs] < signExtImm) ? 1 : 0;
+                regData.registers[rt] = (uint32_t(regData.registers[rs]) < uint32_t(signExtImm)) ? 1 : 0;
                 break;
             case OP_SB: 
                 value = extractBits(regData.registers[rt], 0, 7);
