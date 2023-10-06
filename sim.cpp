@@ -125,10 +125,10 @@ int main(int argc, char** argv) {
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
         
-        std::cout << "instruction = " << std::bitset<32>(instruction)  << std::endl;
+        std::cerr << "instruction = " << std::bitset<32>(instruction)  << std::flush;
         instruction = ConvertWordToBigEndian(instruction);
-        std::cout << "instruction = " << std::bitset<32>(instruction)  << std::endl;
-        
+        std::cerr << "instruction = " << std::bitset<32>(instruction)  << std::flush;
+
         uint32_t next_instruction;
 
         if (delaySlot1) {
