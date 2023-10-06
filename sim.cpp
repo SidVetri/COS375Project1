@@ -125,8 +125,6 @@ int main(int argc, char** argv) {
         // fetch current instruction
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
-        printf("%x\n", instruction);
-        printf("%d\n", int32_t(regData.registers[9]));
     
         
 
@@ -150,7 +148,6 @@ int main(int argc, char** argv) {
         // and set operands accordingly
         uint32_t opcode = extractBits(instruction, 31, 26);
         uint32_t rs = extractBits(instruction, 25, 21);
-        printf("rs: %d\n", rs);
         uint32_t rt = extractBits(instruction, 20, 16);
         uint32_t rd = extractBits(instruction, 15, 11);
         uint32_t shamt = extractBits(instruction, 10, 6);
@@ -293,11 +290,11 @@ int main(int argc, char** argv) {
                 regData.registers[rt] = (uint32_t(regData.registers[rs]) < uint32_t(signExtImm)) ? 1 : 0;
                 break;
             case OP_SB: 
-                value = extractBits(regData.registers[rt], 0, 7);
+                value = extractBits(regData.registers[rt], 7, 0);
                 myMem->setMemValue((regData.registers[rs]+signExtImm),value, BYTE_SIZE);
                 break;                
             case OP_SH: 
-                value = extractBits(regData.registers[rt], 0, 15);
+                value = extractBits(regData.registers[rt], 15, 0);
                 myMem->setMemValue((regData.registers[rs]+signExtImm),value, HALF_SIZE);
                 break;
             case OP_SW: 
