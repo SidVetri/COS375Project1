@@ -126,6 +126,7 @@ int main(int argc, char** argv) {
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
         printf("%x\n", instruction);
+        printf("%d\n", int32_t(regData.registers[9]));
     
         
 
