@@ -148,9 +148,9 @@ int main(int argc, char** argv) {
         // TODO: parse instruction by completing function calls to extractBits()
         // and set operands accordingly
         uint32_t opcode = extractBits(instruction, 26, 31);
-        uint32_t rs = extractBits(instruction, 20, 24);
-        uint32_t rt = extractBits(instruction, 15, 19);
-        uint32_t rd = extractBits(instruction, 10, 14);
+        uint32_t rs = extractBits(instruction, 21, 25);
+        uint32_t rt = extractBits(instruction, 16, 20);
+        uint32_t rd = extractBits(instruction, 11, 15);
         uint32_t shamt = extractBits(instruction, 6, 10);
         uint32_t funct = extractBits(instruction, 0, 5);
         uint16_t immediate = extractBits(instruction, 0, 15);
