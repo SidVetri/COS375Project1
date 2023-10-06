@@ -131,7 +131,7 @@ int main(int argc, char** argv) {
         
 
         instruction = ConvertWordToBigEndian(instruction);
-        //fprintf(stderr, str(instruction));
+        printf("%x\n", instruction);
 
         
 
@@ -154,7 +154,7 @@ int main(int argc, char** argv) {
         // TODO: parse instruction by completing function calls to extractBits()
         // and set operands accordingly
         uint32_t opcode = extractBits(instruction, 26, 31);
-        printf("%x\n", opcode);
+        printf("%b\n", opcode);
         uint32_t rs = extractBits(instruction, 21, 25);
         uint32_t rt = extractBits(instruction, 16, 20);
         uint32_t rd = extractBits(instruction, 11, 15);
