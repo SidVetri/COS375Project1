@@ -60,7 +60,7 @@ enum FUNCT_IDS
 };
 
 // extract specific bits [start, end] from a 32 bit instruction
-uint extractBits(uint32_t instruction, int start, int end)
+uint32_t extractBits(uint32_t instruction, int start, int end)
 {
     int bitsToExtract = start - end + 1;
     uint32_t mask = (1 << bitsToExtract) - 1;
@@ -214,7 +214,7 @@ int main(int argc, char** argv) {
                 regData.registers[rt] = regData.registers[rs] & zeroExtImm;
                 break;
             case OP_BEQ: 
-                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] == regData.registers[rt])
                         PC += branchAddr-4;
                 }
@@ -225,7 +225,7 @@ int main(int argc, char** argv) {
                 }
                 break;
             case OP_BNE:
-                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] != regData.registers[rt])
                             PC += branchAddr-4;
                 }
@@ -236,7 +236,7 @@ int main(int argc, char** argv) {
                 }
                 break;
             case OP_BLEZ: 
-                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] <= 0)
                             PC += branchAddr-4;
                 }
@@ -247,7 +247,7 @@ int main(int argc, char** argv) {
                 }
                 break;
             case OP_BGTZ: 
-                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] > 0)
                             PC += branchAddr-4;
                 }
