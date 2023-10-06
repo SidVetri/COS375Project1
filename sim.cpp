@@ -123,6 +123,8 @@ int main(int argc, char** argv) {
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
+        instruction = ConvertWordToBigEndian(instruction);
+
         uint32_t next_instruction;
 
         if (delaySlot1) {
@@ -212,7 +214,7 @@ int main(int argc, char** argv) {
                 regData.registers[rt] = regData.registers[rs] & zeroExtImm;
                 break;
             case OP_BEQ: 
-                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] == regData.registers[rt])
                         PC += branchAddr-4;
                 }
@@ -223,7 +225,7 @@ int main(int argc, char** argv) {
                 }
                 break;
             case OP_BNE:
-                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] != regData.registers[rt])
                             PC += branchAddr-4;
                 }
@@ -234,7 +236,7 @@ int main(int argc, char** argv) {
                 }
                 break;
             case OP_BLEZ: 
-                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] <= 0)
                             PC += branchAddr-4;
                 }
@@ -245,7 +247,7 @@ int main(int argc, char** argv) {
                 }
                 break;
             case OP_BGTZ: 
-                if (myMem->getMemValue(PC, instruction, WORD_SIZE) == 0xfeedfeed){
+                if (myMem->getMemValue(PC, ConvertWordToBigEndian(instruction), WORD_SIZE) == 0xfeedfeed){
                     if (regData.registers[rs] > 0)
                             PC += branchAddr-4;
                 }
