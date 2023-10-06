@@ -116,7 +116,8 @@ int main(int argc, char** argv) {
     bool delaySlot1 = false;
     bool delaySlot2 = false;
     uint32_t delaySlotBranchAdr = 0;
-
+    
+    uint32_t value = 0;
     // start simulation
     // TODO: complete simulation loop and implement branch delay logic
     while (!err) {
@@ -162,7 +163,7 @@ int main(int argc, char** argv) {
         uint32_t branchAddr = (0x0000 << 16) | immediate;
         uint32_t jumpAddr = (0x0000 << 6) | address; // assumes PC += 4 just happened
 
-        uint32_t value = 0;
+      
         switch(opcode) {
             case OP_ZERO: // R-type instruction 
                 switch(funct) {
@@ -170,7 +171,7 @@ int main(int argc, char** argv) {
                         regData.registers[rd] = regData.registers[rs] + regData.registers[rt];
                         break;
                     case FUN_ADDU: 
-                        regData.registers[rd] = uint32_t(regData.registers[rs]) + uint32_t(regData.registers[rt]);
+                        regData.registers[rd] = regData.registers[rs] + regData.registers[rt];
                         break;
                     case FUN_AND: 
                         regData.registers[rd] = regData.registers[rs] & regData.registers[rt];
