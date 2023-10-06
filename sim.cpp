@@ -126,7 +126,6 @@ int main(int argc, char** argv) {
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
         printf("%x\n", instruction);
-        printf("%x\n", PC);
     
         
 
@@ -149,7 +148,6 @@ int main(int argc, char** argv) {
         // TODO: parse instruction by completing function calls to extractBits()
         // and set operands accordingly
         uint32_t opcode = extractBits(instruction, 31, 26);
-        printf("%d\n", opcode);
         uint32_t rs = extractBits(instruction, 25, 21);
         uint32_t rt = extractBits(instruction, 20, 16);
         uint32_t rd = extractBits(instruction, 15, 11);
