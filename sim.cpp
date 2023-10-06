@@ -4,6 +4,7 @@
 #include "EndianHelpers.h"
 #include <fstream>
 #include <iostream>
+#include <bitset>
 using namespace std; 
 
 union REGS 
@@ -124,9 +125,10 @@ int main(int argc, char** argv) {
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
         
-        fprintf(stderr, "%s\n", instruction);
+        std::cout << "instruction = " << std::bitset<32>(instruction)  << std::endl;
         instruction = ConvertWordToBigEndian(instruction);
-        fprintf(stderr, "%s\n", instruction);
+        std::cout << "instruction = " << std::bitset<32>(instruction)  << std::endl;
+        
         uint32_t next_instruction;
 
         if (delaySlot1) {
