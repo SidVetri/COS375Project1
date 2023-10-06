@@ -211,7 +211,7 @@ int main(int argc, char** argv) {
                 break;
 
             case OP_ADDI: 
-                regData.registers[rd] = regData.registers[rs] + signExtImm;
+                regData.registers[rt] = regData.registers[rs] + signExtImm;
                 break;
             case OP_ADDIU: 
                 regData.registers[rt] = regData.registers[rs] + signExtImm;
