@@ -112,14 +112,10 @@ int main(int argc, char** argv) {
     bool err = false;
     
     // variables to handle branch delay slot execution
-    bool encounteredBranch = false;
-    bool executedDelaySlot = false; 
-    uint32_t savedBranch = 0;       // saved (delayed) branch instruction
-    uint32_t savedPC = 0;           // PC when the branch wa encountered (PC for the instruction in memory after the branch instruction)
-    
-
-    bool delaySlot = false;
+    bool delaySlot1 = false;
+    bool delaySlot2 = false;
     uint32_t delaySlotBranchAdr = 0;
+
     // start simulation
     // TODO: complete simulation loop and implement branch delay logic
     while (!err) {
@@ -128,6 +124,10 @@ int main(int argc, char** argv) {
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
         uint32_t next_instruction;
+
+        if (delaySlot1) {
+            delaySlot2 = true;
+        }
         
         // increment PC & reset zero register
         PC += 4;
@@ -219,6 +219,7 @@ int main(int argc, char** argv) {
                 else{
                     if (regData.registers[rs] == regData.registers[rt])
                         delaySlotBranchAdr = branchAddr;
+                        delaySlot1 = true;
                 }
                 break;
             case OP_BNE:
@@ -229,6 +230,7 @@ int main(int argc, char** argv) {
                 else{
                     if (regData.registers[rs] != regData.registers[rt])
                         delaySlotBranchAdr = branchAddr;
+                        delaySlot1 = true;
                 }
                 break;
             case OP_BLEZ: 
@@ -239,6 +241,7 @@ int main(int argc, char** argv) {
                 else{
                     if (regData.registers[rs] <= 0)
                         delaySlotBranchAdr = branchAddr;
+                        delaySlot1 = true;
                 }
                 break;
             case OP_BGTZ: 
@@ -249,6 +252,7 @@ int main(int argc, char** argv) {
                 else{
                     if (regData.registers[rs] > 0)
                         delaySlotBranchAdr = branchAddr;
+                        delaySlot1 = true;
                 }
                 break;
             case OP_J: 
@@ -299,10 +303,11 @@ int main(int argc, char** argv) {
                 err = true;
         }
 
-        if(delaySlot)
+        if(delaySlot2 && delaySlot1)
         {
-            delaySlot = false;
-            PC += delaySlotBranchAdr - 4;
+            delaySlot2 = false;
+            delaySlot1 = false;
+            PC += delaySlotBranchAdr - 8;
             delaySlotBranchAdr = 0;
         }
     }
