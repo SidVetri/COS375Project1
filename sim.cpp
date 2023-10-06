@@ -151,10 +151,10 @@ int main(int argc, char** argv) {
         uint32_t address = extractBits(instruction, 0, 15);
 
         int32_t signExtImm = signExt(immediate);
-        uint32_t zeroExtImm = immediate;
+        uint32_t zeroExtImm = (0x0000 << 16) | immediate;
 
-        uint32_t branchAddr = immediate;
-        uint32_t jumpAddr = address; // assumes PC += 4 just happened
+        uint32_t branchAddr = (0x0000 << 16) | immediate;
+        uint32_t jumpAddr = (0x0000 << 6) | address; // assumes PC += 4 just happened
 
         uint32_t value = 0;
         switch(opcode) {
