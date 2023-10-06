@@ -159,8 +159,8 @@ int main(int argc, char** argv) {
         int32_t signExtImm = signExt(immediate);
         uint32_t zeroExtImm = (0x0000 << 16) | immediate;
 
-        uint32_t branchAddr = (0x0000 << 16) | immediate;
-        uint32_t jumpAddr = (0x0000 << 6) | address; // assumes PC += 4 just happened
+        uint32_t branchAddr = signExtImm << 2;
+        uint32_t jumpAddr = (PC & 0xf0000000) | (address << 2); // assumes PC += 4 just happened
 
       
         switch(opcode) {
