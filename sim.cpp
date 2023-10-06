@@ -128,7 +128,7 @@ int main(int argc, char** argv) {
         printf("%x\n", instruction);
         printf("%x\n", PC);
         
-        break;
+        
 
         instruction = ConvertWordToBigEndian(instruction);
         //fprintf(stderr, str(instruction));
