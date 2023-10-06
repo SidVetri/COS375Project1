@@ -130,8 +130,8 @@ int main(int argc, char** argv) {
         
         
 
-        instruction = ConvertWordToBigEndian(instruction);
-        printf("%x\n", instruction);
+        //instruction = ConvertWordToBigEndian(instruction);
+        //printf("%x\n", instruction);
 
         
 
