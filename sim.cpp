@@ -123,8 +123,10 @@ int main(int argc, char** argv) {
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
+        
+        fprintf(stdout, "%s\n", instruction);
         instruction = ConvertWordToBigEndian(instruction);
-
+        fprintf(stdout, "%s\n", instruction);
         uint32_t next_instruction;
 
         if (delaySlot1) {
