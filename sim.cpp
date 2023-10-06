@@ -149,6 +149,7 @@ int main(int argc, char** argv) {
         // and set operands accordingly
         uint32_t opcode = extractBits(instruction, 31, 26);
         uint32_t rs = extractBits(instruction, 25, 21);
+        printf("%d", rs);
         uint32_t rt = extractBits(instruction, 20, 16);
         uint32_t rd = extractBits(instruction, 15, 11);
         uint32_t shamt = extractBits(instruction, 10, 6);
