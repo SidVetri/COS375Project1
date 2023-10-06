@@ -127,9 +127,9 @@ int main(int argc, char** argv) {
         myMem->getMemValue(PC, instruction, WORD_SIZE);
 
         
-        std::cout << "a = " << std::bitset<32>(instruction)  << std::flush();
+        fprintf(stderr, "hi");
         instruction = ConvertWordToBigEndian(instruction);
-        std::cout << "a = " << std::bitset<32>(instruction)  << std::flush();
+        //fprintf(stderr, str(instruction));
 
         
 
