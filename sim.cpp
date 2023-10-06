@@ -116,11 +116,12 @@ int main(int argc, char** argv) {
     bool delaySlot1 = false;
     bool delaySlot2 = false;
     uint32_t delaySlotBranchAdr = 0;
-    
-    uint32_t value = 0;
+
+    uint32_t value;
     // start simulation
     // TODO: complete simulation loop and implement branch delay logic
     while (!err) {
+        value = 0;
         // fetch current instruction
         uint32_t instruction;
         myMem->getMemValue(PC, instruction, WORD_SIZE);
