@@ -127,12 +127,7 @@ int main(int argc, char** argv) {
         myMem->getMemValue(PC, instruction, WORD_SIZE);
         printf("%x\n", instruction);
         printf("%x\n", PC);
-        
-        
-
-        //instruction = ConvertWordToBigEndian(instruction);
-        //printf("%x\n", instruction);
-
+    
         
 
         uint32_t next_instruction;
@@ -153,15 +148,15 @@ int main(int argc, char** argv) {
 
         // TODO: parse instruction by completing function calls to extractBits()
         // and set operands accordingly
-        uint32_t opcode = extractBits(instruction, 26, 31);
+        uint32_t opcode = extractBits(instruction, 31, 26);
         printf("%d\n", opcode);
-        uint32_t rs = extractBits(instruction, 21, 25);
-        uint32_t rt = extractBits(instruction, 16, 20);
-        uint32_t rd = extractBits(instruction, 11, 15);
-        uint32_t shamt = extractBits(instruction, 6, 10);
-        uint32_t funct = extractBits(instruction, 0, 5);
-        uint16_t immediate = extractBits(instruction, 0, 15);
-        uint32_t address = extractBits(instruction, 0, 15);
+        uint32_t rs = extractBits(instruction, 25, 21);
+        uint32_t rt = extractBits(instruction, 20, 16);
+        uint32_t rd = extractBits(instruction, 15, 11);
+        uint32_t shamt = extractBits(instruction, 10, 6);
+        uint32_t funct = extractBits(instruction, 5, 0);
+        uint16_t immediate = extractBits(instruction, 15, 0);
+        uint32_t address = extractBits(instruction, 15, 0);
 
         int32_t signExtImm = signExt(immediate);
         uint32_t zeroExtImm = (0x0000 << 16) | immediate;
