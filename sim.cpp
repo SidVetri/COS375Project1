@@ -1,3 +1,9 @@
+/*
+COS375 Project 1
+
+Authors: Jack Zhang (jz4267) and Siddarth Vetrivel 
+*/
+
 #include <stdio.h>
 #include "MemoryStore.h"
 #include "RegisterInfo.h"
