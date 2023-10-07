@@ -310,7 +310,6 @@ int main(int argc, char** argv) {
                 break;                
             case OP_SH: 
                 value = extractBits(regData.registers[rt], 15, 0);
-                printf("%x\n", value);
                 myMem->setMemValue((regData.registers[rs]+signExtImm),value, HALF_SIZE);
                 break;
             case OP_SW: 
