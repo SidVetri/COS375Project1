@@ -113,6 +113,8 @@ int main(int argc, char** argv) {
     bool err = false;
     
     // variables to handle branch delay slot execution
+    // delaySlot1 is set to true if the current instruction requires a delay slot after it (for jumps and branches)
+    // delaySlot2 is set to true during the instruction that is next in memory, and after that instruction is run, the PC is set to the new branch/jump location
     bool delaySlot1 = false;
     bool delaySlot2 = false;
     bool jump = false;
