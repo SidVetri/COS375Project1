@@ -1,7 +1,7 @@
 /*
 COS375 Project 1
 
-Authors: Jack Zhang (jz4267) and Siddarth Vetrivel 
+Authors: Jack Zhang (jz4267) and Siddarth Vetrivel (sv1014)
 */
 
 #include <stdio.h>
@@ -118,9 +118,11 @@ int main(int argc, char** argv) {
     uint32_t PC = 0;
     bool err = false;
     
-    // variables to handle branch delay slot execution
-    // delaySlot1 is set to true if the current instruction requires a delay slot after it (for jumps and branches)
-    // delaySlot2 is set to true during the instruction that is next in memory, and after that instruction is run, the PC is set to the new branch/jump location
+    /* variables to handle delay slot execution
+       delaySlot1 is set to true if the current instruction requires a delay slot after it (for jumps and branches)
+       delaySlot2 is set to true during the instruction that is next in memory, and after that instruction is run, the PC is set to the new branch/jump location
+       jump is set to true if the instruction requiring the delay is a jump rather than a branch
+       */
     bool delaySlot1 = false;
     bool delaySlot2 = false;
     bool jump = false;
@@ -185,7 +187,9 @@ int main(int argc, char** argv) {
                         regData.registers[rd] = regData.registers[rs] & regData.registers[rt];
                         break;
                     case FUN_JR: 
-                        PC = regData.registers[rs];
+                        delaySlotJumpAdr = regData.registers[rs];
+                        delaySlot1 = true;
+                        jump = true;                        
                         break;
                     case FUN_NOR: 
                         regData.registers[rd] = !(regData.registers[rs] | regData.registers[rt]);
@@ -272,7 +276,9 @@ int main(int argc, char** argv) {
                 break;
             case OP_JAL: 
                 regData.registers[31] = PC + 4;
-                PC = jumpAddr;
+                delaySlotJumpAdr = jumpAddr;
+                delaySlot1 = true;
+                jump = true;
                 break;
             case OP_LBU: 
                 myMem->getMemValue((regData.registers[rs]+signExtImm),value,BYTE_SIZE);
