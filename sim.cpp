@@ -254,10 +254,7 @@ int main(int argc, char** argv) {
                     delaySlotBranchAdr = branchAddr;
                     delaySlot1 = true;
                 }
-                printf("%x\n", branchAddr);
-                printf("%x\n", PC + branchAddr);
-                printf("%d\n", rs);
-                printf("%d\n", int32_t(regData.registers[rs]));
+                
                 
                 break;
             case OP_J: 

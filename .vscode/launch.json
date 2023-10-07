@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/jackc/COS375Project1",
-      "program": "c:/Users/jackc/COS375Project1/build/Debug/outDebug",
+      "cwd": "c:/Users/jackc/COS375Project1Clone/COS375Project1",
+      "program": "c:/Users/jackc/COS375Project1Clone/COS375Project1/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
