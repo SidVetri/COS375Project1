@@ -115,7 +115,9 @@ int main(int argc, char** argv) {
     // variables to handle branch delay slot execution
     bool delaySlot1 = false;
     bool delaySlot2 = false;
+    bool jump = false;
     uint32_t delaySlotBranchAdr = 0;
+    uint32_t delaySlotJumpAdr = 0;
 
     uint32_t value;
     // start simulation
@@ -259,7 +261,9 @@ int main(int argc, char** argv) {
                 
                 break;
             case OP_J: 
-                PC = jumpAddr;
+                delaySlotJumpAdr = jumpAddr;
+                delaySlot1 = true;
+                jump = true;
                 break;
             case OP_JAL: 
                 regData.registers[31] = PC + 4;
@@ -311,8 +315,15 @@ int main(int argc, char** argv) {
         {
             delaySlot2 = false;
             delaySlot1 = false;
-            PC += delaySlotBranchAdr - 4;
+            if(jump){
+                PC = delaySlotJumpAdr;
+            }
+            else{
+                PC += delaySlotBranchAdr - 4;
+            }
             delaySlotBranchAdr = 0;
+            delaySlotJumpAdr = 0;
+            jump = false;
         }
     }
 
